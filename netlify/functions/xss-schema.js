@@ -9,12 +9,14 @@ const mockGraphQLServer = (operationName) => {
     return isIntrospection(operationName) ? { data: schema } : { data: {} };
 };
 
+const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+};
+
 const handleOptionsRequest = () => {
-    const headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    };
+   
     return {
         statusCode: 200,
         headers,
@@ -30,8 +32,6 @@ module.exports.handler = async function (event) {
     return {
         statusCode: 200,
         body: JSON.stringify(mockGraphQLServer(operationName)),
-        headers: {
-            'content-type': 'application/json'
-        }
+        headers
     }
 }

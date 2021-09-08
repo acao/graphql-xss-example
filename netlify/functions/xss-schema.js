@@ -15,14 +15,11 @@ const headers = {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 };
 
-const handleOptionsRequest = () => {
-   
-    return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ message: "Successful preflight request" }),
-    };
-}
+const handleOptionsRequest = () => ({
+    statusCode: 200,
+    headers,
+    body: JSON.stringify({ message: "Successful preflight request" }),
+})
 
 module.exports.handler = async function (event) {
     if (event.httpMethod === "OPTIONS") {
@@ -32,6 +29,9 @@ module.exports.handler = async function (event) {
     return {
         statusCode: 200,
         body: JSON.stringify(mockGraphQLServer(operationName)),
-        headers
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
     }
 }

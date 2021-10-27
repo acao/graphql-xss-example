@@ -5,10 +5,6 @@ const isIntrospection = (operationName) => {
     return operationName?.toLowerCase() === "introspectionquery";
 };
 
-const mockGraphQLServer = (operationName) => {
-    return isIntrospection(operationName) ? { data: schema } : { data: {} };
-};
-
 const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -28,7 +24,7 @@ module.exports.handler = async function (event) {
     const operationName = event?.body ? JSON.parse(event.body)?.operationName : null
     return {
         statusCode: 200,
-        body: JSON.stringify(mockGraphQLServer(operationName)),
+        body: JSON.stringify({ data: schema }),
         headers: {
             ...headers,
             'Content-Type': 'application/json'

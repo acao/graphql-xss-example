@@ -5,7 +5,7 @@ const isIntrospection = (operationName) => {
     return operationName?.toLowerCase() === "introspectionquery";
 };
 
-function headers = (requestHeaders)  => ({
+const headers = (requestHeaders)  => ({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": requestHeaders['access-control-request-headers'] || "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -14,7 +14,7 @@ function headers = (requestHeaders)  => ({
 
 const handleOptionsRequest = (requestHeaders) => ({
     statusCode: 200,
-    headers(requestHeaders),
+    headers: headers(requestHeaders),
     body: JSON.stringify({ message: "Successful preflight request" }),
 })
 

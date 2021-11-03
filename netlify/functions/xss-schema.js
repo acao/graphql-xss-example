@@ -6,7 +6,7 @@ const isIntrospection = (operationName) => {
 };
 
 const headers = (requestHeaders)  => ({
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": requestHeaders['origin'] || "*",
     "Access-Control-Allow-Headers": requestHeaders['access-control-request-headers'] || "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Vary": "Access-Control-Request-Headers",
